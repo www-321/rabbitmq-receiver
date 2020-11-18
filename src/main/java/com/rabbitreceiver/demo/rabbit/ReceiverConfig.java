@@ -13,7 +13,7 @@ import java.util.Date;
 @Component
 public class ReceiverConfig {
 
-    @RabbitHandler
+
     @RabbitListener(queues = "dead_queue_1")
     public void receive(@Payload byte[] m) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
