@@ -1,0 +1,10 @@
+spring:
+  rabbitmq:
+    password: password
+    username: user
+    port: 5672
+    host: localhost
+    listener:
+      simple:
+        # \u624B\u52A8\u786E\u8BA4
+        acknowledge-mode: manual
