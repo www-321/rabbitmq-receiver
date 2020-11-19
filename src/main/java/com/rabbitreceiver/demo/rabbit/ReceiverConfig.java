@@ -15,17 +15,18 @@ import java.util.Date;
 public class ReceiverConfig {
 
 
+    //监听方式 1
     @RabbitListener(bindings = {
             @QueueBinding(
                     value = @Queue(name = "dead_queue_1", durable = "true", autoDelete = "false"),
-                    exchange = @Exchange(name = "dead_exchange_1",type = ExchangeTypes.DIRECT, durable = Exchange.TRUE, autoDelete = Exchange.FALSE),
+                    exchange = @Exchange(name = "dead_exchange_1",type = "x-delayed-message", durable = "true", autoDelete = "false"),
                     key = "dead_routing_key"
             )
-    })
-    public void receive(@Payload byte[] m) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject object = objectMapper.readValue(m, JSONObject.class);
+        })
+//    监听方式2
+//    @RabbitListener(queues = "dead_queue_1")
+    public void receive(@Payload String m){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println(sdf.format(new Date()) + ":收到:" + object);
+        System.out.println(sdf.format(new Date()) + ":收到:" + m);
     }
 }
